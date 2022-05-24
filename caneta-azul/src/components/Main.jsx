@@ -1,4 +1,5 @@
-import { Layout, Tabs } from "antd";
+import { Layout, Tabs, Form } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 
 import Parameters from "./Parameters";
@@ -7,27 +8,62 @@ import Results from "./Results";
 
 const { TabPane } = Tabs;
 
-const Main = () => (
-  <Layout.Content style={{ padding: "4rem 0", height: "100%" }}>
-    <Container>
-      <StyledTabs defaultActiveKey="1" type="card" size="large">
-        <TabPane tab="Parâmetros iniciais" key="1">
-          <Parameters />
-        </TabPane>
-        <TabPane tab="Dados do período" key="2">
-          <Periods />
-        </TabPane>
-        <TabPane tab="Resultados" key="3">
-          <Results />
-        </TabPane>
-      </StyledTabs>
-    </Container>
-  </Layout.Content>
-);
+const Main = () => {
+  const products = [
+    { label: "lapiseira", name: "Lapiseira" },
+    { label: "cexterno", name: "Corpo externo" },
+    { label: "corpoPonteira", name: "Corpo da ponteira" },
+    { label: "guiaPonteira", name: "Guia da ponteira" },
+    { label: "tampa", name: "Tampa" },
+    { label: "plastico", name: "Plástico ABS" },
+    { label: "coranteAzul", name: "Corante azul" },
+    { label: "tira", name: "Tira 1mm" },
+    { label: "borracha", name: "Borracha" },
+    { label: "capaBorracha", name: "Capa da borracha" },
+    { label: "mioloInterno", name: "Miolo interno" },
+    { label: "grafite", name: "Grafite 0.7mm" },
+    { label: "fioBorracha", name: "Fio da borracha" },
+    { label: "mola", name: "Mola" },
+    { label: "corpoMiolo", name: "Corpo do miolo" },
+    { label: "suporteGarra", name: "Suporte da garra" },
+    { label: "capaGarra", name: "Capa da garra" },
+    { label: "garras", name: "Garras" },
+    { label: "corantePreto", name: "Corante preto" },
+  ];
+
+  const [parametersForm] = Form.useForm();
+  const [periodsForm] = Form.useForm();
+
+  const [tabValue, setTabValue] = useState("1");
+
+  const data = parametersForm.getFieldsValue();
+  const detailData = periodsForm.getFieldsValue();
+
+  return (
+    <Layout.Content style={{ padding: "4rem 0", height: "100%" }}>
+      <Container>
+        <StyledTabs
+          type="card"
+          size="large"
+          activeKey={tabValue}
+          onChange={(value) => setTabValue(value)}
+        >
+          <TabPane tab="Parâmetros iniciais" key="1" onC>
+            <Parameters form={parametersForm} {...{ products, setTabValue }} />
+          </TabPane>
+          <TabPane tab="Dados do período" key="2">
+            <Periods form={periodsForm} {...{ products, setTabValue }} />
+          </TabPane>
+          <TabPane tab="Resultados" key="3">
+            <Results {...{ data, products, detailData }} />
+          </TabPane>
+        </StyledTabs>
+      </Container>
+    </Layout.Content>
+  );
+};
 
 const StyledTabs = styled(Tabs)`
-  height: 100%;
-
   .ant-tabs-nav {
     margin-bottom: 0;
   }
@@ -37,7 +73,7 @@ const StyledTabs = styled(Tabs)`
     background: #fff;
     border: 1px solid #f0f0f0;
     border-top-color: #fff;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 8px 8px 8px;
   }
 `;
 

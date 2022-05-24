@@ -1,30 +1,51 @@
-import { Button, Form, Input } from "antd";
-
+import { Button, Form, Input, Typography } from "antd";
 import styled from "styled-components";
 
-const Parameters = ({ form }) => (
-  <Form form={form} onValuesChange={() => {}} layout="vertical">
-    <Flex>
-      <Form.Item label="Lote mínimo">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item label="Lead Time">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item label="Estoque segurança">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item label="Qtde Receita">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item label="Estoque inicial">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-    </Flex>
+const Parameters = ({ form, products, setTabValue }) => (
+  <Form form={form} onFinish={() => setTabValue("2")} layout="vertical">
+    {products.map((product) => (
+      <Flex
+        key={product.label}
+        style={{
+          flexDirection: "column",
+          margin: 0,
+          borderBottom: "1px solid #f1f1f1",
+        }}
+      >
+        <Typography.Title level={5} style={{ marginTop: "12px" }}>
+          {product.name}
+        </Typography.Title>
+        <Flex>
+          <Form.Item label="Lote mínimo" name={[product.label, "minLot"]}>
+            <Input placeholder="digite aqui" type="number" />
+          </Form.Item>
+          <Form.Item label="Lead Time" name={[product.label, "leadTime"]}>
+            <Input placeholder="digite aqui" type="number" />
+          </Form.Item>
+          <Form.Item
+            label="Estoque segurança"
+            name={[product.label, "safetyStock"]}
+          >
+            <Input placeholder="digite aqui" type="number" />
+          </Form.Item>
+          <Form.Item label="Qtde Receita" name={[product.label, "revenue"]}>
+            <Input placeholder="digite aqui" type="number" />
+          </Form.Item>
+          <Form.Item
+            label="Estoque inicial"
+            name={[product.label, "initialStock"]}
+          >
+            <Input placeholder="digite aqui" type="number" />
+          </Form.Item>
+        </Flex>
+      </Flex>
+    ))}
     <Controls>
-      <Button>Limpar</Button>
+      <Button onClick={() => form.resetFields()}>Limpar</Button>
       <Form.Item>
-        <Button type="primary">Próximo</Button>
+        <Button type="primary" htmlType="submit">
+          Próximo
+        </Button>
       </Form.Item>
     </Controls>
   </Form>
@@ -36,7 +57,7 @@ const Flex = styled.div`
 
   .ant-row {
     width: 100%;
-    margin: 0 8px;
+    margin: 0 8px 16px;
 
     label {
       color: #a3a3a3;
