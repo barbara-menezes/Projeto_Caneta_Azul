@@ -111,16 +111,16 @@ const Results = ({ data, products, detailData }) => {
 
   const detailDataSource = [
     {
-      key: selectedProduct ? detailData[selectedProduct].key : "",
+      key: detailData[selectedProduct] ? detailData[selectedProduct].key : "",
       metric: "Necessidade bruta",
-      1: selectedProduct ? detailData[selectedProduct].week1 : "",
-      2: selectedProduct ? detailData[selectedProduct].week2 : "",
-      3: selectedProduct ? detailData[selectedProduct].week3 : "",
-      4: selectedProduct ? detailData[selectedProduct].week4 : "",
-      5: selectedProduct ? detailData[selectedProduct].week5 : "",
-      6: selectedProduct ? detailData[selectedProduct].week6 : "",
-      7: selectedProduct ? detailData[selectedProduct].week7 : "",
-      8: selectedProduct ? detailData[selectedProduct].week8 : "",
+      1: detailData[selectedProduct] ? detailData[selectedProduct].week1 : "",
+      2: detailData[selectedProduct] ? detailData[selectedProduct].week2 : "",
+      3: detailData[selectedProduct] ? detailData[selectedProduct].week3 : "",
+      4: detailData[selectedProduct] ? detailData[selectedProduct].week4 : "",
+      5: detailData[selectedProduct] ? detailData[selectedProduct].week5 : "",
+      6: detailData[selectedProduct] ? detailData[selectedProduct].week6 : "",
+      7: detailData[selectedProduct] ? detailData[selectedProduct].week7 : "",
+      8: detailData[selectedProduct] ? detailData[selectedProduct].week8 : "",
     },
   ];
 
