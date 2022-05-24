@@ -10,6 +10,121 @@ const Results = ({ data, products, detailData }) => {
       : "";
   };
 
+  const calculaRecebimento = (estoquePlanejado, semana) => {
+    const product = dataSource.find((e) => e.key === selectedProduct)
+   if(semana === 1){
+     const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week1 - product.safetyStock
+     if (qtdeFaltante < 0)
+     return qtdeFaltante * -1
+     else return 0
+   }
+   if(semana === 2){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week2 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 3){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week3 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 4){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week4 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 5){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week5 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 6){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week6 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 7){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week7 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  if(semana === 8){
+    const qtdeFaltante = estoquePlanejado - detailData[selectedProduct].week8 - product.safetyStock
+    if (qtdeFaltante < 0)
+    return qtdeFaltante * -1
+    else return 0
+  }
+  }
+  const calculaEstoqueProjetado = (estoqueInicial, semana) => {
+    const product = estoqueInicial.find((e) => e.key === selectedProduct)
+    if(semana === 1){
+      product.estoqueAtual = product.initialStock
+    return product.initialStock
+    }
+    if(semana === 2){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week1
+      if(varAux - detailData[selectedProduct].week1 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week1
+    }
+    if(semana === 3){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week2
+      if(varAux - detailData[selectedProduct].week2 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week2
+    }
+    if(semana === 4){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week3
+      if(varAux - detailData[selectedProduct].week3 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week3
+    }
+    if(semana === 5){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week4
+      if(varAux - detailData[selectedProduct].week4 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week4
+    }
+    if(semana === 6){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week5
+      if(varAux - detailData[selectedProduct].week5 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week5
+    }
+    if(semana === 7){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week6
+      if(varAux - detailData[selectedProduct].week6 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week6
+    }
+    if(semana === 8){
+      const varAux = product.estoqueAtual
+      product.estoqueAtual = product.estoqueAtual -  detailData[selectedProduct].week7
+      if(varAux - detailData[selectedProduct].week7 < product.safetyStock)
+      return product.safetyStock
+      else
+    return varAux - detailData[selectedProduct].week7
+    }
+  }
+
   const dataSource = Object.entries(data).map((e) => {
     return {
       key: e[0],
@@ -122,8 +237,43 @@ const Results = ({ data, products, detailData }) => {
       7: detailData[selectedProduct] ? detailData[selectedProduct].week7 : "",
       8: detailData[selectedProduct] ? detailData[selectedProduct].week8 : "",
     },
+    {
+      key: detailData[selectedProduct] ? detailData[selectedProduct].key : "",
+      metric: "Estoque Projetado",
+      1: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 1) : "",
+      2: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 2) : "",
+      3: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 3) : "",
+      4: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 4) : "",
+      5: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 5) : "",
+      6: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 6) : "",
+      7: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 7) : "",
+      8: detailData[selectedProduct] ? calculaEstoqueProjetado(dataSource, 8) : "",
+    },
+    {
+      key: detailData[selectedProduct] ? detailData[selectedProduct].key : "",
+      metric: "Recebimento Planejado",
+      1: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 1), 1) : "",
+      2: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 2), 2) : "",
+      3: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 3), 3) : "",
+      4: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 4), 4) : "",
+      5: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 5), 5) : "",
+      6: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 6), 6) : "",
+      7: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 7), 7) : "",
+      8: detailData[selectedProduct] ? calculaRecebimento(calculaEstoqueProjetado(dataSource, 8), 8) : "",
+    },
+    {
+      key: detailData[selectedProduct] ? detailData[selectedProduct].key : "",
+      metric: "Liberação das Ordens",
+      1: "",
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+      6: "",
+      7: "",
+      8: "",
+    },
   ];
-
   return (
     <>
       <Table dataSource={dataSource} columns={columns} />
